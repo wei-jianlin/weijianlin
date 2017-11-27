@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>	
+<body>
+    
+</body>
+
+<script>
+/**<input name="class.id">
+ * <input name="class.student.stuId">
+ * 以面向对象的取值设值封装的函数
+ * 将复杂值转化为简单数组    
+ * @param value 可以是数组,对象,一般是从后台接受的实体类值
+ * @param keyIsFlowParent 为true则深拷贝对象时,key值保留父亲的key值,
+ * 例子:[{a:1},[{b:2},{c:3,d:[{e:4},{f:5}]}]]
+ * return keyIsFlowParent 为false时:[{a:1},{b:2},{e:4}...], keyIsFlowParent为true时:[{a:1},{b:2},{d.e:4}...]
+ */
+function transComplexValuesIntoSimpleArray(value,keyIsFlowParent){
+    var simpleArray = [];
+  
+    implementFunFlowParent(value,null);
+    
+    function implementFunFlowParent(value,parent){
+        for(var item in value){
+            var tempValue = value[item];
+            if(typeof tempValue === 'object'){
+                if(keyIsFlowParent && typeof parent !== 'string') parent = "";
+                if(isNaN(Number(item)) && keyIsFlowParent){
+                    if(parent){
+                        parent +="." + item;
+                    }else{
+                        parent = item;
+                    }
+                }
+                implementFunFlowParent(tempValue,parent);
+            }else{
+                var tempObject = {};
+                if(keyIsFlowParent && parent){
+                    tempObject[parent + '.' + item] = tempValue;
+                }else{
+                    tempObject[item] = tempValue;
+                }                 
+                simpleArray.push(tempObject);
+            }
+        }
+    }
+    return  simpleArray;
+}
+</script>
+</html>

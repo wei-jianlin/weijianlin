@@ -1,0 +1,17 @@
+rainman.ma@change-info.com  
+usail@change-info.com 
+jean@change-info.com
+
+
+
+完成任务的格式为：
+task#任务编号
+（回车下一行）任务内容简述
+
+完成Bug的格式为：
+bug#bug编号
+（回车下一行）解决的问题简述
+
+华律网:经济法 2
+
+观澜wifi密码:18018770388

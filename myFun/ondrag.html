@@ -1,0 +1,72 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<table border="1px solid black">
+		<thead>
+			<tr ondragover='allowDrop()' ondrop='drop()'>
+				<td width='50px' draggable="true" ondragstart='dragStart()' ondrag='dragging()'>序号</td>
+				<td width='50px' draggable="true" ondragstart='dragStart()' ondrag='dragging()'>姓名</td>
+				<td width='50px' draggable="true" ondragstart='dragStart()' ondrag='dragging()'>年龄</td>
+				<td width='50px' draggable="true" ondragstart='dragStart()' ondrag='dragging()'>性别</td>
+			</tr>			
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>张飞</td>
+				<td>25</td>
+				<td>男</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>貂蝉</td>
+				<td>23</td>
+				<td>女</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>关羽</td>
+				<td>28</td>
+				<td>男</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+<script type="text/javascript" src='../lib/jquery-3.2.1.min.js'></script>
+<script>
+	function allowDrop() {
+	    event.preventDefault();
+	}
+
+	function drop(){
+		event.preventDefault();
+		var sourceIndex = event.dataTransfer.getData('sourceIndex');
+		var targetIndex = $(event.target).index('td');
+		var table = $('table')[0];
+		for(var i = 0; i < table.rows.length; i++){
+			var row = table.rows[i];
+			var sourceHtml = row.innerHTML;
+			var sourceArr = new Array();
+			var j = 0;	
+			while(sourceHtml.indexOf('</td>') > 0){
+				sourceArr[j] = sourceHtml.substring(sourceHtml.indexOf('<td>'),sourceHtml.indexOf('</td>') + 5);
+				sourceHtml = sourceHtml.replace(sourceArr[j++],'');
+			}				
+			var source = sourceArr.splice(sourceIndex,1)[0];
+			sourceArr.splice(targetIndex,0,source);
+			row.innerHTML = sourceArr.toString().replace(/,/g,'');
+		}
+	}
+
+	function dragStart(){
+		event.dataTransfer.setData('sourceIndex',$(event.target).index('td'));
+	}
+
+	function dragging(){
+
+	}
+</script>
+</html>
