@@ -1,5 +1,0 @@
-1.用Vue取代EasyUi.
-
-2.原来文件输入输出用的是java.io包下的
-
-改成java.nio包写的类处理.
