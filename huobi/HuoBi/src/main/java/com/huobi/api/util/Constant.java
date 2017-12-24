@@ -10,6 +10,14 @@ package com.huobi.api.util;
  */
 public class Constant {
 
+	//30分钟线跌幅买入
+	public static final double BUY_RISE1_30 = -0.065;
+	//30分钟线涨幅买入
+	public static final double SALE_RISE1_30 = 0.024;
+	
+    //费率
+    public static final double RATE = 0.002;
+	
     public static final String MIN_1 = "1min";
     
     public static final String MIN_5 = "5min";
@@ -27,4 +35,5 @@ public class Constant {
     public static final String WEEK_1 = "1week";
     
     public static final String YEAR_1 = "1year";
+    
 }
