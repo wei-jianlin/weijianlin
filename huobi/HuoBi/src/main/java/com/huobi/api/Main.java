@@ -1,57 +1,93 @@
 package com.huobi.api;
 
-import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import com.huobi.api.request.CreateOrderRequest;
-import com.huobi.api.response.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.huobi.api.request.CreateOrder;
+import com.huobi.api.response.Kline;
+import com.huobi.api.response.OrderDetails;
+import com.huobi.api.util.ApiClient;
+import com.huobi.api.util.Arithmetic;
+import com.huobi.api.util.Constant;
+import com.huobi.api.util.SymbolEnum;
 
 public class Main {
-
-  static final String API_KEY = "your-api-key";
-  static final String API_SECRET = "your-api-secret";
-
-  public static void main(String[] args) {
-    try {
-      apiSample();
-    } catch (ApiException e) {
-      System.err.println("API Error! err-code: " + e.getErrCode() + ", err-msg: " + e.getMessage());
-      e.printStackTrace();
+    
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    
+    public static void main(String[] args) {
+        try {
+            ApiClient client = new ApiClient();
+            while(true)allSymbolMin30(client);
+          } catch (ApiException e) {
+              logger.error("API Error! err-code: " + e.getErrCode() + ", err-msg: " + e.getMessage());
+          } catch (InterruptedException e) {
+              logger.error("Thread Error! err-msg: " + e.getMessage());
+        }
     }
-  }
-
-  static void apiSample() {
-    // create ApiClient using your api key and api secret:
-    ApiClient client = new ApiClient(API_KEY, API_SECRET);
-    // get symbol list:
-    print(client.getSymbols());
-    // get accounts:
-    List<Account> accounts = client.getAccounts();
-    print(accounts);
-    if (!accounts.isEmpty()) {
-      // find account id:
-      Account account = accounts.get(0);
-      long accountId = account.id;
-      // create order:
-      CreateOrderRequest createOrderReq = new CreateOrderRequest();
-      createOrderReq.accountId = String.valueOf(accountId);
-      createOrderReq.amount = "0.02";
-      createOrderReq.price = "1100.99";
-      createOrderReq.symbol = "ethcny";
-      createOrderReq.type = CreateOrderRequest.OrderType.BUY_LIMIT;
-      Long orderId = client.createOrder(createOrderReq);
-      print(orderId);
-      // place order:
-      String r = client.placeOrder(orderId);
-      print(r);
+    
+    public static void allSymbolMin30(ApiClient client) throws InterruptedException{
+        SymbolEnum[] symbolEnums = SymbolEnum.values();
+        for(SymbolEnum symbolEnum : symbolEnums){
+            min30(client,symbolEnum);
+        }
     }
-  }
+    
 
-  static void print(Object obj) {
-    try {
-      System.out.println(JsonUtil.writeValue(obj));
-    } catch (IOException e) {
-      e.printStackTrace();
+    public static void min30(ApiClient client,SymbolEnum symbolEnum) throws InterruptedException{
+        Calendar calendar = Calendar.getInstance();
+        int miute = calendar.get(Calendar.MINUTE) % 30;
+        calendar.add(Calendar.MINUTE, -miute);
+        List<Kline> list = new ArrayList<Kline>(0);
+        try{
+           list = client.getHistoryKline(symbolEnum, Constant.MIN_30, 4);
+        }catch(ApiException e){
+            logger.error("API Error! err-code: " + e.getErrCode() + ", err-msg: " + e.getMessage()
+                    + ",paramter:" + symbolEnum);
+        }
+        Kline firstKline = null;
+        double riseAndFallTotal = 0;
+        for(int i = 0; i < list.size(); i++) {
+            firstKline = list.get(0);
+            Kline kline = list.get(i);
+            double riseAndFall = Arithmetic.riseAndFall(kline.open, kline.close);
+            riseAndFallTotal += riseAndFall; 
+            
+            logger.info(symbolEnum + " 30分钟线涨跌幅:" + 
+            Arithmetic.riseAndFallToString(Arithmetic.riseAndFall(kline.open, kline.close))
+            + "  " + calendar.getTime().toLocaleString());
+            
+            calendar.add(Calendar.MINUTE, -30);
+            if(riseAndFallTotal < Constant.BUY_RISE1_30) {
+                String buyPrice = new BigDecimal(firstKline.close).setScale(8,BigDecimal.ROUND_DOWN)
+                        .toString();
+                String salePrice = new BigDecimal(firstKline.close * (1 + Constant.SALE_RISE1_30))
+                        .setScale(8,BigDecimal.ROUND_DOWN).toString();
+                Long buyOrderId = CreateOrder.orderPlace(client, buyPrice, symbolEnum, Constant.BUY_LIMIT);
+                //挂单一分钟
+                Thread.sleep(60000);
+                OrderDetails orderDetails = client.orderDetail(buyOrderId.toString());
+                //部分成交或者完全成交
+                switch(orderDetails.state){
+                case "partial-filled":
+                    CreateOrder.submitcancel(client, buyOrderId.toString());
+                    CreateOrder.orderPlace(client, salePrice, symbolEnum, Constant.SELL_LIMIT);
+                    break;
+                case "filled":
+                    CreateOrder.orderPlace(client, salePrice, symbolEnum, Constant.SELL_LIMIT);
+                    break;
+                default:
+                    CreateOrder.submitcancel(client, buyOrderId.toString());
+                }
+                logger.info("-----买入价为" + buyPrice + "-----" + "卖出价:" + salePrice);
+                break;
+            }
+        }
     }
-  }
+    
 }

@@ -10,14 +10,31 @@ package com.huobi.api.util;
  */
 public class Constant {
 
-	//30分钟线跌幅买入
-	public static final double BUY_RISE1_30 = -0.065;
-	//30分钟线涨幅买入
-	public static final double SALE_RISE1_30 = 0.024;
-	
+    //30分钟线跌幅买入
+    public static final double BUY_RISE1_30 = -0.065;
+    //30分钟线涨幅卖出
+    public static final double SALE_RISE1_30 = 0.024;
+    
     //费率
     public static final double RATE = 0.002;
-	
+    
+    /**
+     * 限价买入
+     */
+    public static final String BUY_LIMIT = "buy-limit";
+    /**
+     * 限价卖出
+     */
+    public static final String SELL_LIMIT = "sell-limit";
+    /**
+     * 市价买入
+     */
+    public static final String BUY_MARKET = "buy-market";
+    /**
+     * 市价卖出
+     */
+    public static final String SELL_MARKET = "sell-market";
+    
     public static final String MIN_1 = "1min";
     
     public static final String MIN_5 = "5min";
