@@ -11,9 +11,9 @@ package com.huobi.api.util;
 public class Constant {
 
     //30分钟线跌幅买入
-    public static final double BUY_RISE1_30 = -0.065;
+    public static final double BUY_RISE1_30 = -0.067;
     //30分钟线涨幅卖出
-    public static final double SALE_RISE1_30 = 0.024;
+    public static final double SALE_RISE1_30 = 0.027;
     
     //费率
     public static final double RATE = 0.002;
