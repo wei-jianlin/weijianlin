@@ -91,6 +91,5 @@ public class Main {
 		}catch (Exception e) {
             logger.error("Thread Error! err-msg: " + e.getMessage());
 		}       
-    }
-    
+    } 
 }
