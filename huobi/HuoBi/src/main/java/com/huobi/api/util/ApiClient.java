@@ -26,7 +26,12 @@ import com.huobi.api.util.JsonUtil;
 import com.huobi.api.request.CreateOrderRequest;
 import com.huobi.api.response.Account;
 import com.huobi.api.response.ApiResponse;
+import com.huobi.api.response.Historytrade;
+import com.huobi.api.response.HistorytradeDetail;
+import com.huobi.api.response.Historytrades;
 import com.huobi.api.response.Kline;
+import com.huobi.api.response.Matchresult;
+import com.huobi.api.response.Matchresults;
 import com.huobi.api.response.OrderDetails;
 import com.huobi.api.response.Symbol;
 
@@ -86,7 +91,6 @@ public class ApiClient {
     
     /**
      * 创建订单
-     * 
      * @param request CreateOrderRequest object.
      * @return Order id.
      */
@@ -129,6 +133,42 @@ public class ApiClient {
           get("/v1/common/symbols", null, new TypeReference<ApiResponse<List<Symbol>>>() {});
       return resp.checkAndReturn();
     }
+    
+    /** 批量获取最近的交易记录
+     * <p>一句话功能简述</p>
+     * <p>功能详细描述</p>
+     * @param symbol
+     * @param size
+     * @return
+     */
+    public List<Historytrade> getHistoryTrade(SymbolEnum symbol,Integer size){
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("symbol", symbol.getValue());
+        params.put("size", size.toString());
+        Historytrades resp =
+                get("/market/history/trade", params, new TypeReference<Historytrades>() {});
+            return resp.checkAndReturn();
+    }
+    
+    /** 
+     * <p>查询当前成交、历史成交</p>
+     * <p>功能详细描述</p>
+     * @param symbol
+     * @param startDate yyyy-mm-dd
+     * @param endDate   yyyy-mm-dd
+     */
+    public List<Matchresults> getMatchresults(SymbolEnum symbol,String startDate,String endDate,
+            String types,String direct){
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("symbol", symbol.getValue());
+        params.put("start-date", startDate);
+        params.put("end-date", endDate);
+        params.put("types", types);
+        params.put("direct", direct);
+        Matchresult resp =
+                get("/v1/order/matchresults", params, new TypeReference<Matchresult>() {});
+            return resp.checkAndReturn();
+    } 
     
     // send a GET request.
     <T> T get(String uri, Map<String, String> params, TypeReference<T> ref) {

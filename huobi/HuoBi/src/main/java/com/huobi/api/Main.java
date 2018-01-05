@@ -26,9 +26,24 @@ public class Main {
     }
     
     public static void allSymbolMin30(ApiClient client){
-        SymbolEnum[] symbolEnums = SymbolEnum.values();
+        SymbolEnum[] symbolEnums = SymbolEnum.values();        
         for(SymbolEnum symbolEnum : symbolEnums){
-            min30(client,symbolEnum);
+            try{
+                List<Kline> klines = client.getHistoryKline(symbolEnum, Constant.DAY_1, 2);
+                for(Kline kline : klines) {
+                    double riseAndFall = Arithmetic.riseAndFall(kline.open, kline.high);
+                    //昨日与今日涨幅超60%,今日忽略
+                    if(riseAndFall < 0.60) {
+                        min30(client,symbolEnum);
+                        break;
+                    }
+                }
+            }catch(ApiException e){
+                logger.error("API Error! err-code: " + e.getErrCode() + ", err-msg: " + e.getMessage()
+                        + ",paramter:" + symbolEnum);
+            }catch (Exception e) {
+                logger.error("Thread Error! err-msg: " + e.getMessage());
+            }    
         }
     }
     
@@ -62,14 +77,17 @@ public class Main {
                            .toString();
                    String salePrice = new BigDecimal(firstKline.close * (1 + Constant.SALE_RISE1_30))
                            .setScale(8,BigDecimal.ROUND_DOWN).toString();
-                   Long buyOrderId = CreateOrder.orderPlace(client, buyPrice, symbolEnum, Constant.BUY_MARKET);                  
+                   Long buyOrderId = CreateOrder.orderPlace(client, buyPrice, symbolEnum, Constant.BUY_LIMIT);                  
                    if(buyOrderId != null) {
-                	   //挂单三分钟
-                	   Thread.sleep(180000);
-                	   OrderDetails orderDetails = client.orderDetail(buyOrderId.toString());
+                       //挂单三分钟
+                       Thread.sleep(180000);
+                       OrderDetails orderDetails = client.orderDetail(buyOrderId.toString());
                        //部分成交或者完全成交
                        switch(orderDetails.state){
                        case "partial-filled":
+                           CreateOrder.orderPlace(client, salePrice, symbolEnum, Constant.SELL_LIMIT);
+                           //挂单两分钟
+                           Thread.sleep(120000);
                            CreateOrder.submitcancel(client, buyOrderId.toString());
                            CreateOrder.orderPlace(client, salePrice, symbolEnum, Constant.SELL_LIMIT);
                            break;
@@ -79,7 +97,9 @@ public class Main {
                        default:
                            CreateOrder.submitcancel(client, buyOrderId.toString());
                        }
-                       logger.info("-----买入价为" + orderDetails.price + "-----" + "卖出价:" + salePrice);
+                       logger.info("-----买入价为" + buyPrice + "-----" + "卖出价:" + salePrice);
+                   }else{
+                       logger.info("-----策略买入价为" + buyPrice + "-----" + "策略卖出价:" + salePrice);
                    }
                }
            }
@@ -88,8 +108,8 @@ public class Main {
                     + ",paramter:" + symbolEnum);
         }catch(InterruptedException e) {
             logger.error("Thread Error! err-msg: " + e.getMessage());
-		}catch (Exception e) {
+        }catch (Exception e) {
             logger.error("Thread Error! err-msg: " + e.getMessage());
-		}       
+        }       
     } 
 }

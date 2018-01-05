@@ -2,7 +2,7 @@ package com.huobi.api.request;
 
 import com.huobi.api.util.AccountInfo;
 
-public class CreateOrderRequest {
+public class CreateOrderRequest{
     
     public CreateOrderRequest(){}
     

@@ -2,8 +2,7 @@ package com.huobi.api.util;
 
 /**
  * <p>交易对</p>
- * <p>功能详细描述</p>
- * @author cz
+ * <p>不买卖分叉币</p>
  * @version V1.0, 2017年12月24日 10:00:0
  * @see 包名.类名#类名
  * @since 2017年12月21日
@@ -31,8 +30,7 @@ public enum SymbolEnum {
     PAY_BTC("paybtc","6","4"),TNB_BTC("tnbbtc","8","0"),TNT_BTC("tntbtc","8","0"),
     QSP_BTC("qspbtc","8","0"),SNT_BTC("sntbtc","8","0"),//MLT_BTC("mltbtc","6","4"),
     STORJ_BTC("storjbtc","8","2"),RDN_BTC("rdnbtc","8","0"),RCN_BTC("rcnbtc","8","0"),
-    KNC_BTC("kncbtc","8","0"),ZRX_BTC("zrxbtc","8","0"),BTG_BTC("btgbtc","6","4"),
-    BCD_BTC("bcdbtc","6","4"),SBTC_BTC("sbtcbtc","6","4"),BCX_BTC("bcxbtc","8","4"),
+    KNC_BTC("kncbtc","8","0"),ZRX_BTC("zrxbtc","8","0"),
     
     
     //ETH

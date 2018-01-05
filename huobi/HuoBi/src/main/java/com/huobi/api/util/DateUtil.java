@@ -10,7 +10,9 @@ import java.util.Date;
  */
 public class DateUtil {
 
-	
+	public static long nd = 1000 * 24 * 60 * 60;   //一天
+	public static long nh = 1000 * 60 * 60;        //小时
+	public static long nm = 1000 * 60;             //分钟
 	
 	public static void main(String[] args) {
 		Calendar calendar = Calendar.getInstance();
