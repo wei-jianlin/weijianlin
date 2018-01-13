@@ -32,10 +32,11 @@ public class Test {
         //while(true)allSymbolMin30(client);
         //get(client,SymbolEnum.ITC_BTC,"2018-01-05 00:23:41","0.00043000");
         //getHistoryTrade(client);
-        SymbolEnum[] symbolEnums = SymbolEnum.values();        
-        for(SymbolEnum symbolEnum : symbolEnums){
-            CreateOrder.getMatchresults(client,symbolEnum,"2018-01-05","");
-        }
+        //SymbolEnum[] symbolEnums = SymbolEnum.values();        
+        //for(SymbolEnum symbolEnum : symbolEnums){
+            //CreateOrder.getMatchresults(client,symbolEnum,"2018-01-05","");
+        //}
+        getMonthlyRise(client);
     }
     
     public static void allSymbolMin30(ApiClient client){
@@ -165,4 +166,36 @@ public class Test {
         List<Matchresults> list = client.getMatchresults(symbolEnum, startDate, "","","");
         return list;
     }
+    
+    /** 
+     * <p>月涨幅</p>
+     * <p>功能详细描述</p>
+     * @param client
+     */
+    public static void getMonthlyRise(ApiClient client){
+        SymbolEnum[] symbolEnums = SymbolEnum.values();
+        for(SymbolEnum symbolEnum : symbolEnums){
+            int size = 30;
+            List<Kline> list = null;
+            try{
+                list = client.getHistoryKline(symbolEnum, Constant.DAY_1, size);
+            }catch(ApiException e){
+                System.out.println(symbolEnum);
+                continue;
+            }
+            
+            Kline todayKline =  list.get(0);
+            Kline lastKline = null;
+            while(size >= 0){
+                size = list.size();
+                lastKline =  list.get(--size);
+                if(lastKline != null) break;
+            }
+            double rise = Arithmetic.riseAndFall(lastKline.open,todayKline.close);
+            if(rise > 3){
+                System.out.println(symbolEnum + "涨幅:" + Arithmetic.riseAndFallToString(rise));
+            }
+        }
+    }
+
 }

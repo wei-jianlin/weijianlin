@@ -14,22 +14,22 @@ import com.huobi.api.util.SymbolEnum;
 
 public class Risk {
 
-	/**风险控制
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		ApiClient client = new ApiClient();
-		List<SymbolEnum> riskSymbolEnums = new ArrayList<SymbolEnum>(0);
-		theDailIncreaseIsOverSixty(client,riskSymbolEnums);
-		for(SymbolEnum riskSymbolEnum : riskSymbolEnums){
-		    System.out.println(riskSymbolEnum);
-		}
-	}
+    /**风险控制
+     * @param args
+     */
+    public static void main(String[] args) {
+        ApiClient client = new ApiClient();
+        List<SymbolEnum> riskSymbolEnums = new ArrayList<SymbolEnum>(0);
+        theDailIncreaseIsOverSixty(client,riskSymbolEnums);
+        for(SymbolEnum riskSymbolEnum : riskSymbolEnums){
+            System.out.println(riskSymbolEnum);
+        }
+    }
 
-	/**
-	 * 一小时查询一次昨日与今日涨幅超60%,今日忽略
-	 */
-	public static void theDailIncreaseIsOverSixty(ApiClient client,List<SymbolEnum> riskSymbolEnums) {
+    /**
+     * 一小时查询一次昨日与今日涨幅超60%,今日忽略
+     */
+    public static void theDailIncreaseIsOverSixty(ApiClient client,List<SymbolEnum> riskSymbolEnums) {
         SymbolEnum[] symbolEnums = SymbolEnum.values();
         //一小时查询一次昨日与今日涨幅超60%,今日忽略       
         Runnable runnable = new Runnable() {  
@@ -52,6 +52,6 @@ public class Risk {
         ScheduledExecutorService service = Executors  
                 .newSingleThreadScheduledExecutor();  
         service.scheduleAtFixedRate(runnable,1,5,TimeUnit.SECONDS);
-	}
+    }
 
 }
