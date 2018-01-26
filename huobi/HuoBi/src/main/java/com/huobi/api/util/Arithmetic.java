@@ -2,6 +2,9 @@ package com.huobi.api.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>相关计算公式</p>
@@ -68,5 +71,34 @@ public class Arithmetic {
      */
     public static String setScale(String num,String precision){
         return new BigDecimal(num).setScale(Integer.valueOf(precision), BigDecimal.ROUND_DOWN).toString();
+    }
+    
+    /** 
+     * <p>涨跌排名</p>
+     * <p>功能详细描述</p>
+     * @param map 交易对,涨跌幅
+     * @param riseList 涨跌幅List
+     * @param size 前几名
+     * @param sort asc 跌,desc 涨 ,默认涨
+     */
+    public static void ranking(Map<String,Double> map,List<Double> riseList,int size,String sort){
+        riseList.sort((Double a,Double b) -> {
+            if("asc".equals(sort)){
+                return a.compareTo(b);
+            }else if("desc".equals(sort)){
+                return b.compareTo(a);
+            }else{
+                return b.compareTo(a);
+            }
+        });
+        Set<String> keys = map.keySet();
+        for(int i = 0; i < size * 3; i++){
+            for(String key : keys){
+                Double rise = map.get(key);
+                if(rise.compareTo(riseList.get(i)) == 0){
+                    System.out.println("排名:" + key + "涨幅:" + rise * 100 + "%");
+                }
+            }
+        }
     }
 }

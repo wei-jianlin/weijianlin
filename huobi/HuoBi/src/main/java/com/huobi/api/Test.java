@@ -11,10 +11,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.huobi.api.request.CreateOrder;
 import com.huobi.api.response.Historytrade;
 import com.huobi.api.response.HistorytradeDetail;
-import com.huobi.api.response.Historytrades;
 import com.huobi.api.response.Kline;
 import com.huobi.api.response.Matchresults;
 import com.huobi.api.util.ApiClient;
@@ -25,7 +23,7 @@ import com.huobi.api.util.SymbolEnum;
 
 public class Test {
     
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Test.class);
     
     public static void main(String[] args) {      
         ApiClient client = new ApiClient();
@@ -36,7 +34,6 @@ public class Test {
         //for(SymbolEnum symbolEnum : symbolEnums){
             //CreateOrder.getMatchresults(client,symbolEnum,"2018-01-05","");
         //}
-        getMonthlyRise(client);
     }
     
     public static void allSymbolMin30(ApiClient client){
@@ -167,35 +164,4 @@ public class Test {
         return list;
     }
     
-    /** 
-     * <p>月涨幅</p>
-     * <p>功能详细描述</p>
-     * @param client
-     */
-    public static void getMonthlyRise(ApiClient client){
-        SymbolEnum[] symbolEnums = SymbolEnum.values();
-        for(SymbolEnum symbolEnum : symbolEnums){
-            int size = 30;
-            List<Kline> list = null;
-            try{
-                list = client.getHistoryKline(symbolEnum, Constant.DAY_1, size);
-            }catch(ApiException e){
-                System.out.println(symbolEnum);
-                continue;
-            }
-            
-            Kline todayKline =  list.get(0);
-            Kline lastKline = null;
-            while(size >= 0){
-                size = list.size();
-                lastKline =  list.get(--size);
-                if(lastKline != null) break;
-            }
-            double rise = Arithmetic.riseAndFall(lastKline.open,todayKline.close);
-            if(rise > 3){
-                System.out.println(symbolEnum + "涨幅:" + Arithmetic.riseAndFallToString(rise));
-            }
-        }
-    }
-
 }

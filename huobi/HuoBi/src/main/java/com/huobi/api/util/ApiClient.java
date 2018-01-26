@@ -35,6 +35,7 @@ import com.huobi.api.response.Matchresults;
 import com.huobi.api.response.OrderDetails;
 import com.huobi.api.response.Symbol;
 
+
 public class ApiClient {
     
     static final int CONN_TIMEOUT = 5;
@@ -44,7 +45,8 @@ public class ApiClient {
     
     static final OkHttpClient client = createOkHttpClient();
     
-    static final String API_HOST = "api.huobi.pro";
+    //static final String API_HOST = "api.huobi.pro";   //用国外服务器，用官方客户端，huobi.pro和huobipro.com有一个坏了换另外一个
+    static final String API_HOST = "api.huobipro.com";
 
     static final String API_URL = "https://" + API_HOST;
     
