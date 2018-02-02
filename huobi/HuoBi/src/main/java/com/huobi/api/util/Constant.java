@@ -16,7 +16,7 @@ public class Constant {
     public static final double SALE_RISE1_30 = 0.027;
     
     //费率
-    public static final double RATE = 0.002;
+    public static final double RATE = 0.002 * 2.5;
     
     /**
      * 限价买入

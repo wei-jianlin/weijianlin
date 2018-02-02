@@ -70,6 +70,7 @@ public class Arithmetic {
      * @return
      */
     public static String setScale(String num,String precision){
+        if(num == null) return null;
         return new BigDecimal(num).setScale(Integer.valueOf(precision), BigDecimal.ROUND_DOWN).toString();
     }
     

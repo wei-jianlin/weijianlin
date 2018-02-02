@@ -45,6 +45,11 @@ public class CreateOrder {
             balance = getBalance(client,key.substring(key.indexOf("_") + 1).toLowerCase());         
             amount = Arithmetic.setScale(balance,symbol.getPricePrecision());
             orderRequest.price = "0.0";
+        }else if("sell-market".equals(type)){
+            //市价卖,则查出拥有symbol中基础货币的数量
+            balance = getBalance(client,key.substring(0,key.indexOf("_")).toLowerCase());         
+            amount = Arithmetic.setScale(balance,symbol.getPricePrecision());
+            orderRequest.price = "0.0";
         }
         orderRequest.amount = amount;
         logger.info("计价货币的数量:" + balance + ",买入数量:" + amount + ",type:" + type  + ",精度:" + symbol.getPricePrecision());

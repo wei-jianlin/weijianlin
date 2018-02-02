@@ -38,9 +38,9 @@ import com.huobi.api.response.Symbol;
 
 public class ApiClient {
     
-    static final int CONN_TIMEOUT = 5;
-    static final int READ_TIMEOUT = 5;
-    static final int WRITE_TIMEOUT = 5;
+    static final int CONN_TIMEOUT = 10;
+    static final int READ_TIMEOUT = 10;
+    static final int WRITE_TIMEOUT = 10;
     static final MediaType JSON = MediaType.parse("application/json");
     
     static final OkHttpClient client = createOkHttpClient();
@@ -59,6 +59,7 @@ public class ApiClient {
      * @return
      */
     public List<Kline> getHistoryKline(SymbolEnum symbol,String period,Integer size){
+        size = size > 2000 ? 2000 : size; 
         Map<String, String> params = new HashMap<String,String>();
         params.put("symbol", symbol.getValue());
         params.put("period", period);

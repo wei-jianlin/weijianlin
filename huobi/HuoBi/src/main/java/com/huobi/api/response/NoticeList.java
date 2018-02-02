@@ -11,13 +11,55 @@ import java.util.List;
 
 public class NoticeList {
 
-    public int start;
+    private int start;
     
-    public int limt;
+    private int limt;
     
-    public int totalCount;
+    private int totalCount;
     
-    public int pages;
+    private int pages;
     
-    public List<Notice> items;
+    private List<Notice> items;
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getLimt() {
+        return limt;
+    }
+
+    public void setLimt(int limt) {
+        this.limt = limt;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public List<Notice> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Notice> items) {
+        this.items = items;
+    }
+    
+    
 }

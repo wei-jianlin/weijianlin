@@ -8,13 +8,55 @@ package com.huobi.api.response;
  */
 public class Notice {
 
-    public Integer id;
+    private Integer id;
     
-    public String title;
+    private String title;
     
-    public Long created;
+    private Long created;
     
-    public String source;
+    private String source;
     
-    public String content;
+    private String content;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    
 }
