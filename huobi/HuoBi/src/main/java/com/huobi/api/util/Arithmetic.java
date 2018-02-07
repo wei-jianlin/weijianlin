@@ -38,7 +38,7 @@ public class Arithmetic {
     /** 
      * <p>涨跌幅</p>
      * @param sourcePrice  开始价
-     * @param currentPrice 结束价
+     * @param currentPrice 现价
      * @return
      */
     public static double riseAndFall(double sourcePrice,double currentPrice){

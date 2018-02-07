@@ -75,12 +75,13 @@ public class Main {
                Long buyOrderId = CreateOrder.orderPlace(client, buyPrice, 
                        symbolEnum, Constant.BUY_LIMIT);
                if(buyOrderId != null){
-                   //挂单四分钟
-                   Thread.sleep(240000);
+                   //挂单三分钟
+                   Thread.sleep(180000);
                    OrderDetails orderDetails = client.orderDetail(buyOrderId.toString());
                    //部分成交或者完全成交
                    switch(orderDetails.state){
                    case "partial-filled":
+                	   CreateOrder.orderPlace(client, salePrice, symbolEnum, Constant.SELL_LIMIT);
                        CreateOrder.submitcancel(client, buyOrderId.toString());
                        CreateOrder.orderPlace(client, salePrice, symbolEnum, Constant.SELL_LIMIT);
                        logger.info("-----已成交买入价为" + buyPrice + "-----" + "已成交卖出价:" + salePrice);

@@ -103,7 +103,7 @@ public class ChooseCurrency {
                 contens += content;
             }            
         }
-        str.append(contens.substring(0,contens.length() - 4) + ";\r\n\t");
+       str.append(contens.substring(0,contens.length() - 4) + ";\r\n\t");
         str = classEnd(str);
         byte[] bytes = str.toString().getBytes();
         String projectPath = System.getProperty("user.dir");
@@ -155,6 +155,10 @@ public class ChooseCurrency {
                                     count++;
                                     totalProfit += saleRise;
                                     buyPrice = null;
+                                }else if((i % root < root && i % root != 0) || i == 0){
+                                	//最后一次还卖不出去,总收益应减去此次损失
+                                	double rise = Arithmetic.riseAndFall(buyPrice,currentKline.close);
+                                	totalProfit += rise;
                                 }
                             }else{
                                 double rise = Arithmetic.riseAndFall(preKline.open,currentKline.close);
@@ -167,7 +171,7 @@ public class ChooseCurrency {
                             }
                             preKline = currentKline;
                         }
-                        if(Double.compare(totalProfit, 0.0) != 0){
+                        if(Double.compare(totalProfit, 0.0) > 0){
                             SimpleSymbolByKlineModel model = new SimpleSymbolByKlineModel();
                             model.setSymbol(symbolEnum.name());
                             model.setRoot(root);
