@@ -91,7 +91,7 @@ public class SimpleSymbolByKlineModel implements Comparable<SimpleSymbolByKlineM
                 }else{
                     if(this.getTotalProfit() > o.getTotalProfit()){
                         i = 1;
-                    }else if(this.getSaleRise() < o.getSaleRise()){
+                    }else if(this.getTotalProfit() < o.getTotalProfit()){
                         i = -1;
                     }else{
                         i = 0;

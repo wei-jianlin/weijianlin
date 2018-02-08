@@ -43,11 +43,11 @@ public class KlineStrategy {
         PeriodEnum[] periods = PeriodEnum.values();
         SortedSet<Integer> set = new TreeSet<Integer>();
         List<SimpleSymbolByKlineModel> list = new ArrayList<SimpleSymbolByKlineModel>();
-        for(PeriodEnum period : periods){            
-            List<Kline> klines = client.getHistoryKline(symbol, period.getValue(),
-                    PeriodEnum.getRoot(30, period));
+        for(PeriodEnum period : periods){
+            int totalRoot = PeriodEnum.getRoot(30, period);
+            List<Kline> klines = client.getHistoryKline(symbol, period.getValue(),totalRoot);
             if(period.getValue().equals("1day") && klines.size() < 30) return;
-            for(int root = 1; root <= 30; root++){           //几根K线
+            for(int root = 1; root <= totalRoot; root++){           //几根K线
                 //费率做为起步
                 for(Double buyRise = -Constant.RATE;buyRise > -0.7;buyRise-= Constant.RATE){
                     for(Double saleRise = Constant.RATE;saleRise < 2;saleRise+= Constant.RATE){
