@@ -60,7 +60,7 @@ public class CreateOrderRequest {
         }catch (ApiException e) {
             orderId = null;
             logger.error("API Error! err-code: " + e.getErrCode() + ", err-msg: " + e.getMessage()
-            + ",paramter:" + symbol);
+            + ",paramter:" + symbol.getBaseCurrency());
         }       
         return orderId;
     }

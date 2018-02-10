@@ -41,7 +41,7 @@ public class KlineStrategy {
     public static List<SimpleSymbolByKlineModel> simpleSymbolByKline(){
         List<SimpleSymbolByKlineModel> buySymbol = new ArrayList<SimpleSymbolByKlineModel>();
         for(Symbol symbol : allSymbol){
-            if(!"usdt".equals(symbol.getQuoteCurrency()) && !"main".equals(symbol.getSymbolPartition())) continue;
+            if(!"usdt".equals(symbol.getQuoteCurrency()) || !"main".equals(symbol.getSymbolPartition())) continue;
             PeriodEnum[] periods = PeriodEnum.values();
             SortedSet<Integer> set = new TreeSet<Integer>();
             List<SimpleSymbolByKlineModel> list = new ArrayList<SimpleSymbolByKlineModel>();
