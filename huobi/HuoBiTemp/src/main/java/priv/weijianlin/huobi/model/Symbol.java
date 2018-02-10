@@ -1,12 +1,16 @@
 package priv.weijianlin.huobi.model;
 
-public class Symbol {
+import java.io.Serializable;
 
+public class Symbol implements Serializable{
+
+    private static final long serialVersionUID = 1788163974312627444L;
+    
     private String baseCurrency;        //基础货币
     private String quoteCurrency;       //计价货币
-    private String symbol;              //交易对
     private String pricePrecision;      //价格精度
     private String amountPrecision;     //数量精度
+    private String symbolPartition;     //交易区               main主区，innovation创新区，bifurcation分叉区
 
     public String getBaseCurrency() {
         return baseCurrency;
@@ -24,14 +28,6 @@ public class Symbol {
         this.quoteCurrency = quoteCurrency;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
     public String getPricePrecision() {
         return pricePrecision;
     }
@@ -47,6 +43,13 @@ public class Symbol {
     public void setAmountPrecision(String amountPrecision) {
         this.amountPrecision = amountPrecision;
     }
-    
+
+    public String getSymbolPartition() {
+        return symbolPartition;
+    }
+
+    public void setSymbolPartition(String symbolPartition) {
+        this.symbolPartition = symbolPartition;
+    }
     
 }

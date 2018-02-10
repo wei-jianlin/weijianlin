@@ -18,10 +18,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import priv.weijianlin.huobi.model.Account;
+import priv.weijianlin.huobi.model.CreateOrderModel;
+import priv.weijianlin.huobi.model.Matchresults;
+import priv.weijianlin.huobi.model.OrderDetails;
 import priv.weijianlin.huobi.model.Symbol;
 import priv.weijianlin.huobi.response.ApiException;
 import priv.weijianlin.huobi.response.ApiResponse;
 import priv.weijianlin.huobi.response.Kline;
+import priv.weijianlin.huobi.response.Matchresult;
 import priv.weijianlin.huobi.util.AccountInfo;
 import priv.weijianlin.huobi.util.ApiSignature;
 import priv.weijianlin.huobi.util.JsonUtil;
@@ -37,8 +42,8 @@ public class ApiClient {
     static final MediaType JSON = MediaType.parse("application/json");
     
     //用国外服务器，用官方客户端，huobi.pro和huobipro.com有一个坏了换另外一个
-    //static final String API_HOST = "api.huobi.pro";   
-    static final String API_HOST = "api.huobipro.com";
+    static final String API_HOST = "api.huobi.pro";   
+    //static final String API_HOST = "api.huobipro.com";
 
     static final String API_URL = "https://" + API_HOST;
     
@@ -48,6 +53,74 @@ public class ApiClient {
         ApiClient.client = client;
         return new ApiClient();
     } 
+
+    /** 
+     * <p>查询当前成交、历史成交</p>
+     * <p>功能详细描述</p>
+     * @param symbol
+     * @param startDate yyyy-mm-dd
+     * @param endDate   yyyy-mm-dd
+     */
+    public List<Matchresults> getMatchresults(Symbol symbol,String startDate,String endDate,
+            String types,String direct){
+        Map<String, String> params = new HashMap<String,String>();
+        params.put("symbol", symbol.getBaseCurrency() + symbol.getQuoteCurrency());
+        params.put("start-date", startDate);
+        params.put("end-date", endDate);
+        params.put("types", types);
+        params.put("direct", direct);
+        Matchresult resp =
+                get("/v1/order/matchresults", params, new TypeReference<Matchresult>() {});
+            return resp.checkAndReturn();
+    }
+    
+    /** 
+     * <p>查询订单详情</p>
+     * <p>功能详细描述</p>
+     * @param orderId
+     */
+    public OrderDetails orderDetail(String orderId){
+        ApiResponse<OrderDetails> resp =
+                get("/v1/order/orders/" + orderId, null, 
+                        new TypeReference<ApiResponse<OrderDetails>>() {});
+            return resp.checkAndReturn();
+    }
+    
+    /** 
+     * <p>撤销订单</p>
+     * <p>订单是否撤销成功请调用订单查询接口查询该订单状态</p>
+     * @param orderId
+     * @return Order id.
+     */
+    public String submitcancel(String orderId){
+        ApiResponse<String> resp =
+                post("/v1/order/orders/" + orderId + "/submitcancel", null, 
+                        new TypeReference<ApiResponse<String>>() {});
+            return resp.checkAndReturn();
+    }
+    
+    /** 
+     * <p>查询指定账户的余额</p>
+     * <p>功能详细描述</p>
+     * @return
+     */
+    public Account getBalance(){
+        ApiResponse<Account> resp =
+                get("/v1/account/accounts/" + AccountInfo.SPOT_ACCOUNT_ID + "/balance", null, 
+                        new TypeReference<ApiResponse<Account>>() {});
+            return resp.checkAndReturn();
+    } 
+    
+    /**
+     * 创建订单
+     * @param request CreateOrderRequest object.
+     * @return Order id.
+     */
+    public Long createOrder(CreateOrderModel request) {
+      ApiResponse<Long> resp =
+          post("/v1/order/orders/place", request, new TypeReference<ApiResponse<Long>>() {});
+      return resp.checkAndReturn();
+    }
     
     /** 
      * <p>行情API</p>
@@ -60,7 +133,7 @@ public class ApiClient {
     public List<Kline> getHistoryKline(Symbol symbol,String period,Integer size){
         size = size > 2000 ? 2000 : size; 
         Map<String, String> params = new HashMap<String,String>();
-        params.put("symbol", symbol.getSymbol());
+        params.put("symbol", symbol.getBaseCurrency() + symbol.getQuoteCurrency());
         params.put("period", period);
         params.put("size", size.toString());
         ApiResponse<List<Kline>> resp =

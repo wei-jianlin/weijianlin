@@ -1,8 +1,12 @@
 package priv.weijianlin.huobi.model;
 
-public class SimpleSymbolByKlineModel implements Comparable<SimpleSymbolByKlineModel>{
+import java.io.Serializable;
 
-    private String symbol;
+public class SimpleSymbolByKlineModel implements Serializable,Comparable<SimpleSymbolByKlineModel>{
+
+    private static final long serialVersionUID = 6143044227910278554L;
+
+    private Symbol symbol;
     
     private int root;               //几根
     
@@ -64,11 +68,11 @@ public class SimpleSymbolByKlineModel implements Comparable<SimpleSymbolByKlineM
         this.count = count;
     }
 
-    public String getSymbol() {
+    public Symbol getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
+    public void setSymbol(Symbol symbol) {
         this.symbol = symbol;
     }
 
