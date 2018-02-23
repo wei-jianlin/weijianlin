@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient.Builder;
 public class OkHttpClientUtil {
 
     static final int CONN_TIMEOUT = 10;
-    static final int READ_TIMEOUT = 10;
+    static final int READ_TIMEOUT = 30;
     static final int WRITE_TIMEOUT = 10;
     
     private OkHttpClientUtil(){}

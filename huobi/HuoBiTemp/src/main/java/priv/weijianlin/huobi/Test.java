@@ -1,7 +1,7 @@
 package priv.weijianlin.huobi;
 
 import java.math.BigDecimal;
-import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -31,18 +31,23 @@ public class Test {
     
     static final OkHttpClient httpClient = OkHttpClientUtil.createOkHttpClient();
     static ApiClient client = ApiClient.getApiClient(httpClient);
-    static List<Symbol> allSymbol = client.getSymbols();
-    static List<SimpleSymbolByKlineModel> buySymbol = KlineStrategy.simpleSymbolByKline();
+    static List<Symbol> allSymbol = client.getSymbols(symbol -> 
+	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("btcusdt") ||
+	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("xrpusdt") ||
+	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("ethusdt") ||
+	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("ltcusdt") ||
+	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("eosusdt") ||
+	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("etcusdt"));
+    static List<SimpleSymbolByKlineModel> buySymbol = KlineStrategy.simpleSymbolByKline(allSymbol);
     private static final Logger logger = LoggerFactory.getLogger(Test.class);
             
     public static void main(String[] args) {
-        
+        getAllSymbol();
         while(true){
             try{
                 if(allSymbol != null && buySymbol != null){
                     buySymbol();
                 }
-                getAllSymbol();
             }catch(Exception e){
                 logger.info("exception:" + e.getMessage());
             }
@@ -62,9 +67,15 @@ public class Test {
                     buySymbolBackups = ListUtil.deepCopy(buySymbol);
                     allSymbol = null;
                     buySymbol = null;
-                    allSymbol = client.getSymbols();
-                    buySymbol = KlineStrategy.simpleSymbolByKline();
-                }catch(SocketException e){
+                    allSymbol = client.getSymbols(symbol -> 
+                	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("btcusdt") ||
+                	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("xrpusdt") ||
+                	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("ethusdt") ||
+                	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("ltcusdt") ||
+                	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("eosusdt") ||
+                	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("etcusdt"));
+                    buySymbol = KlineStrategy.simpleSymbolByKline(allSymbol);
+                }catch(SocketTimeoutException e){
                     if(allSymbol == null){
                         allSymbol = allSymbolBackups;
                     }
@@ -100,6 +111,7 @@ public class Test {
             if(isRisk) continue;
             int totalRoot = model.getRoot() * 2;
             List<Kline> klines = client.getHistoryKline(model.getSymbol(), model.getPeriod(),totalRoot);
+            totalRoot = klines.size();
             Kline currentKline = klines.get(0);    
             for(int i = 1; i < totalRoot; i++){
                 Kline perKline = klines.get(i);

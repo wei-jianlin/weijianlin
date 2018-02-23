@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.DatatypeConverter;
@@ -142,7 +143,7 @@ public class ApiClient {
     }
     
     /**
-     * 查询交易对
+     * 查询所有交易对
      * 
      * @return List of symbols.
      */
@@ -150,6 +151,17 @@ public class ApiClient {
       ApiResponse<List<Symbol>> resp =
           get("/v1/common/symbols", null, new TypeReference<ApiResponse<List<Symbol>>>() {});
       return resp.checkAndReturn();
+    }
+    
+    /**查询所有交易对,并按predicate过滤
+     * @param predicate
+     * @return List of symbols.
+     */
+    public List<Symbol> getSymbols(Predicate<? super Symbol> predicate) {
+      ApiResponse<List<Symbol>> resp =
+          get("/v1/common/symbols", null, new TypeReference<ApiResponse<List<Symbol>>>() {});
+      List<Symbol> symbols = resp.checkAndReturn();
+      return symbols.stream().filter(predicate).collect(Collectors.toList());
     }
     
     // send a GET request.

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +25,18 @@ import priv.weijianlin.huobi.util.OkHttpClientUtil;
 public class KlineStrategy {
 
     static final OkHttpClient httpClient = OkHttpClientUtil.createOkHttpClient();
-    static ApiClient client = ApiClient.getApiClient(httpClient);
-    static List<Symbol> allSymbol = client.getSymbols();
-    
+    static ApiClient client = ApiClient.getApiClient(httpClient);    
     private static final Logger logger = LoggerFactory.getLogger(KlineStrategy.class);
     
     public static void main(String[] args) {
-        List<SimpleSymbolByKlineModel> buySymbol = simpleSymbolByKline();
+    	List<Symbol> allSymbol = client.getSymbols(symbol -> 
+    	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("btcusdt") ||
+    	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("xrpusdt") ||
+    	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("ethusdt") ||
+    	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("ltcusdt") ||
+    	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("eosusdt") ||
+    	(symbol.getBaseCurrency() + symbol.getQuoteCurrency()).equals("etcusdt"));
+        List<SimpleSymbolByKlineModel> buySymbol = simpleSymbolByKline(allSymbol);
     }
     /** 
      * <p>买入,选usdt主区,按k线选币</p>
@@ -38,17 +44,15 @@ public class KlineStrategy {
      * <p>选取权重为2的,取数buyRise 和 saleRise 都降低0.05,k线,root 从 0 到 2 * root</p>
      * <p>选取30天数据参考,按不同period折算,不足30天的,跳过</p>
      */
-    public static List<SimpleSymbolByKlineModel> simpleSymbolByKline(){
+    public static List<SimpleSymbolByKlineModel> simpleSymbolByKline(List<Symbol> allSymbol){
         List<SimpleSymbolByKlineModel> buySymbol = new ArrayList<SimpleSymbolByKlineModel>();
         for(Symbol symbol : allSymbol){
-            if(!"usdt".equals(symbol.getQuoteCurrency()) || !"main".equals(symbol.getSymbolPartition())) continue;
             PeriodEnum[] periods = PeriodEnum.values();
             SortedSet<Integer> set = new TreeSet<Integer>();
             List<SimpleSymbolByKlineModel> list = new ArrayList<SimpleSymbolByKlineModel>();
             for(PeriodEnum period : periods){
                 int totalRoot = PeriodEnum.getRoot(30, period);
                 List<Kline> klines = client.getHistoryKline(symbol, period.getValue(),totalRoot);
-                if(period.getValue().equals("1day") && klines.size() < 30) break;
                 System.out.println("simpleSymbolByKline运行了!");
                 for(int root = 1; root <= totalRoot; root++){           //几根K线
                     //费率做为起步
