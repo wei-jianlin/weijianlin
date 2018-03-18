@@ -55,7 +55,7 @@ public class Test {
         }
     }
 
-    //每隔两个星期更新 symbol
+    //每隔一个月更新 symbol
     private static void getAllSymbol(){
         Runnable runnable = new Runnable() {            
             public void run() { 
@@ -92,7 +92,7 @@ public class Test {
         };
         ScheduledExecutorService service = Executors  
                 .newSingleThreadScheduledExecutor();  
-        service.scheduleAtFixedRate(runnable,15,15,TimeUnit.DAYS);
+        service.scheduleAtFixedRate(runnable,30,30,TimeUnit.DAYS);
     }
     
     //买入
