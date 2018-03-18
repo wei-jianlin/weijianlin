@@ -7,7 +7,7 @@ public class Daemon extends Thread{
 	
 	@Override
 	public void run() {
-		for(int i = 0; i < 100; i++) {
+		for(int i = 0; i < 1000; i++) {
 			System.out.println(getName() + " " + i);
 		}
 	}
@@ -21,8 +21,6 @@ public class Daemon extends Thread{
 		daemon.setDaemon(true);
 		daemon.start();
 		for(int i = 0; i < 10; i++) {
-			System.out.println(new Date().toLocaleString());
-			if(i == 3) {Thread.sleep(1000);}
 			System.out.println(Thread.currentThread().getName() + "  " + i);
 		}
 	}

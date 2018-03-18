@@ -53,7 +53,9 @@ public class CreateOrderRequest {
             orderRequest.setPrice("0.0");
         }
         orderRequest.setAmount(amount);
-        logger.info("计价货币的数量:" + balance + ",买入数量:" + amount + ",type:" + type  + ",精度:" + symbol.getPricePrecision());
+        logger.info("计价货币" + symbol.getQuoteCurrency() +"的数量:" + balance + ",买入"
+        			+ symbol.getBaseCurrency()+"数量:" + amount + ",type:" + type  
+        			+ ",精度:" + symbol.getPricePrecision());
         Long orderId = null;
         try {
             orderId = client.createOrder(orderRequest);

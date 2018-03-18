@@ -41,7 +41,7 @@ public class KlineStrategy {
     /** 
      * <p>买入,选usdt主区,按k线选币</p>
      * <p>单一币按不同跟K线,不同跌幅,不同涨幅交易,按权重,收益排序</p>
-     * <p>选取权重为2的,取数buyRise 和 saleRise 都降低0.05,k线,root 从 0 到 2 * root</p>
+     * <p>选取权重为2的,取数buyRise 和 saleRise 都降低0.01,k线,root 从 0 到 2 * root</p>
      * <p>选取30天数据参考,按不同period折算,不足30天的,跳过</p>
      */
     public static List<SimpleSymbolByKlineModel> simpleSymbolByKline(List<Symbol> allSymbol){
@@ -106,13 +106,16 @@ public class KlineStrategy {
                 if(model.getCount() == 2 ){
                     Double buyRise = model.getBuyRise();
                     //buyRise是负的
-                    model.setBuyRise(new BigDecimal(buyRise).add(new BigDecimal(0.05)).doubleValue());
+                    model.setBuyRise(new BigDecimal(buyRise).add(new BigDecimal(0.001)).doubleValue());
                     Double saleRise = model.getSaleRise();
-                    model.setSaleRise(new BigDecimal(saleRise).add(new BigDecimal(-0.05)).doubleValue());
-                    buySymbol.add(model);
+                    saleRise =  new BigDecimal(saleRise).add(new BigDecimal(-0.001)).doubleValue();
+                    model.setSaleRise(saleRise);
+                    if(saleRise.compareTo(0.005) == 1) {
+                    	  buySymbol.add(model);
+                    }                                    
                     break;
                 }
-            }     
+            }
         }
         for(SimpleSymbolByKlineModel model : buySymbol){
             logger.info(model.getSymbol().getBaseCurrency() + model.getSymbol().getQuoteCurrency() 
