@@ -1,37 +1,37 @@
-Ò»:Èı¸ö»ù±¾µÄannotation
+ï»¿ä¸€:ä¸‰ä¸ªåŸºæœ¬çš„annotation
 
-   1.@Override:Ç¿ÖÆ×ÓÀàÖØĞ´¸¸Àà·½·¨
+   1.@Override:å¼ºåˆ¶å­ç±»é‡å†™çˆ¶ç±»æ–¹æ³•
 
-   2.@Deprecated:±íÊ¾ÒÑ¹ıÊ±
+   2.@Deprecated:è¡¨ç¤ºå·²è¿‡æ—¶
 
-   3.@SuppressWarings:ÒÖÖÆ±àÒëÆ÷¾¯¸æ
+   3.@SuppressWarings:æŠ‘åˆ¶ç¼–è¯‘å™¨è­¦å‘Š
 
-¶ş:JDKÔªAnnotation:ĞŞÊÎÆäËûAnnotation¶¨Òå
+äºŒ:JDKå…ƒAnnotation:ä¿®é¥°å…¶ä»–Annotationå®šä¹‰
 
-  1.@Retention :Ö»ÄÜÓÃÓÚĞŞÊÎÒ»¸öAnnotation¶¨Òå,ÓÃÓÚÖ¸¶¨¸ÃAnnotation¿ÉÒÔ±£Áô¶à³¤Ê±¼ä.
+  1.@Retention :åªèƒ½ç”¨äºä¿®é¥°ä¸€ä¸ªAnnotationå®šä¹‰,ç”¨äºæŒ‡å®šè¯¥Annotationå¯ä»¥ä¿ç•™å¤šé•¿æ—¶é—´.
 
-    RetentionPolicy.CLASS:±àÒëÆ÷½«°Ñ×¢ÊÍ¼ÇÂ¼ÔÚclassÎÄ¼şÖĞ,µ±JVMÔËĞĞ³ÌĞòÊ±,²»ÔÚ±£Áô×¢ÊÍ.
+    RetentionPolicy.CLASS:ç¼–è¯‘å™¨å°†æŠŠæ³¨é‡Šè®°å½•åœ¨classæ–‡ä»¶ä¸­,å½“JVMè¿è¡Œç¨‹åºæ—¶,ä¸åœ¨ä¿ç•™æ³¨é‡Š.
 
-    RetentionPolicy.RUNTIME:±àÒëÆ÷½«°Ñ×¢ÊÍ¼ÇÂ¼ÔÚclassÎÄ¼şÖĞ,µ±JVMÔËĞĞ³ÌĞòÊ±,Ò²»á±£Áô×¢ÊÍ,
+    RetentionPolicy.RUNTIME:ç¼–è¯‘å™¨å°†æŠŠæ³¨é‡Šè®°å½•åœ¨classæ–‡ä»¶ä¸­,å½“JVMè¿è¡Œç¨‹åºæ—¶,ä¹Ÿä¼šä¿ç•™æ³¨é‡Š,
 
-    ³ÌĞò¿ÉÒÔÍ¨¹ı·´Éä»ñÈ¡¸Ã×¢ÊÍ.
+    ç¨‹åºå¯ä»¥é€šè¿‡åå°„è·å–è¯¥æ³¨é‡Š.
 
-    RetentionPolicy.SOURCE:±àÒëÆ÷Ö±½Ó¶ªÆú¸ÃÀàĞÍµÄ×¢ÊÍ.
+    RetentionPolicy.SOURCE:ç¼–è¯‘å™¨ç›´æ¥ä¸¢å¼ƒè¯¥ç±»å‹çš„æ³¨é‡Š.
 
-  2.@Target:Ò²ÊÇÓÃÓÚĞŞÊÎÒ»¸öAnnotation¶¨Òå,ËüÓÃÓÚÖ¸¶¨Annotation¿ÉÒÔĞŞÊÎÄÄĞ©³ÌĞòÔªËØ.
+  2.@Target:ä¹Ÿæ˜¯ç”¨äºä¿®é¥°ä¸€ä¸ªAnnotationå®šä¹‰,å®ƒç”¨äºæŒ‡å®šAnnotationå¯ä»¥ä¿®é¥°å“ªäº›ç¨‹åºå…ƒç´ .
 
-    ElementType.Annotation_type:Ö»ÄÜĞŞÊÎAnnotation
+    ElementType.Annotation_type:åªèƒ½ä¿®é¥°Annotation
 
     ElementType.Constructor, ElementType.Field,
  
-    ElementType.Local_varlable:Ö»ÄÜĞŞÊÎ¾Ö²¿±äÁ¿
+    ElementType.Local_varlable:åªèƒ½ä¿®é¥°å±€éƒ¨å˜é‡
 
     ElementType.Mmethod,ElementType.Package,ElementType.paramter
 
-    ElementType.TYPE : ¿ÉÒÔĞŞÊÎÀà,½Ó¿Ú,»òÃ¶¾Ù¶¨Òå
+    ElementType.TYPE : å¯ä»¥ä¿®é¥°ç±»,æ¥å£,æˆ–æšä¸¾å®šä¹‰
 
-  3.@Documented:½«±»javadoc¹¤¾ßÌáÈ¡³ÉÎÄµµ.
+  3.@Documented:å°†è¢«javadocå·¥å…·æå–æˆæ–‡æ¡£.
 
-  4.@Inherited:Ê¹ÓÃ¸ÃAnnotationĞŞÊÎµÄÀàµÄ×ÓÀà×Ô¶¯ÓµÓĞ¸Ã×¢ÊÍ.
+  4.@Inherited:ä½¿ç”¨è¯¥Annotationä¿®é¥°çš„ç±»çš„å­ç±»è‡ªåŠ¨æ‹¥æœ‰è¯¥æ³¨é‡Š.
     
 
