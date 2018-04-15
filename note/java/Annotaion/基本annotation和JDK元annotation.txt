@@ -1,0 +1,37 @@
+一:三个基本的annotation
+
+   1.@Override:强制子类重写父类方法
+
+   2.@Deprecated:表示已过时
+
+   3.@SuppressWarings:抑制编译器警告
+
+二:JDK元Annotation:修饰其他Annotation定义
+
+  1.@Retention :只能用于修饰一个Annotation定义,用于指定该Annotation可以保留多长时间.
+
+    RetentionPolicy.CLASS:编译器将把注释记录在class文件中,当JVM运行程序时,不在保留注释.
+
+    RetentionPolicy.RUNTIME:编译器将把注释记录在class文件中,当JVM运行程序时,也会保留注释,
+
+    程序可以通过反射获取该注释.
+
+    RetentionPolicy.SOURCE:编译器直接丢弃该类型的注释.
+
+  2.@Target:也是用于修饰一个Annotation定义,它用于指定Annotation可以修饰哪些程序元素.
+
+    ElementType.Annotation_type:只能修饰Annotation
+
+    ElementType.Constructor, ElementType.Field,
+ 
+    ElementType.Local_varlable:只能修饰局部变量
+
+    ElementType.Mmethod,ElementType.Package,ElementType.paramter
+
+    ElementType.TYPE : 可以修饰类,接口,或枚举定义
+
+  3.@Documented:将被javadoc工具提取成文档.
+
+  4.@Inherited:使用该Annotation修饰的类的子类自动拥有该注释.
+    
+
