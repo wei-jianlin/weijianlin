@@ -39,9 +39,22 @@
 
 1.保险
 
+2.大部分写后端:springMvc + spring + mybatis
+
+   缓存Redis 
+
+3.加班,调休
 
 五:崔俊彬  
 
+1.外包
   
+六:王敏文
+
+1.
+
+2.springMvc + spring + mybatis 
+
+3.9k
 
 
