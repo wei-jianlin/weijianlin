@@ -10,7 +10,7 @@ public class Main {
         AsyncTaskService service = context.getBean(AsyncTaskService.class);
         for(int i = 0; i < 10; i++){
             service.executeAsyncTask(i);
-            service.executeAsyncTaskPlus(1);
+            service.executeAsyncTaskPlus(i);
         }
         context.close();
     }

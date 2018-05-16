@@ -1,0 +1,17 @@
+Struts2 + hibernate + springMvc
+
+BaseAction<T> extends BaseSupportAction
+
+protected T data;
+
+protected BaseServiceI<T> service;子类重写setsService方法注入service层
+
+
+BaseServiceI<T> 提供一些公共方法 save,delete,update
+
+前端稍微整了一下,之前是js ,css文件没有分开来,位置没放好
+
+就独立出3个jsp文件,一个专门放版本号等公共变量,一个放css文件,一个放js文件.
+
+这样css 就可以放在head标签,js 放在body标签后面
+  
