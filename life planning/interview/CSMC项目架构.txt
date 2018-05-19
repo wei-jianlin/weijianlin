@@ -1,17 +1,17 @@
-Struts2 + hibernate + springMvc
+ï»¿Struts2 + hibernate + springMvc
 
 BaseAction<T> extends BaseSupportAction
 
 protected T data;
 
-protected BaseServiceI<T> service;×ÓÀàÖØĞ´setsService·½·¨×¢Èëservice²ã
+protected BaseServiceI<T> service;å­ç±»é‡å†™setsServiceæ–¹æ³•æ³¨å…¥serviceå±‚
 
 
-BaseServiceI<T> Ìá¹©Ò»Ğ©¹«¹²·½·¨ save,delete,update
+BaseServiceI<T> æä¾›ä¸€äº›å…¬å…±æ–¹æ³• save,delete,update
 
-Ç°¶ËÉÔÎ¢ÕûÁËÒ»ÏÂ,Ö®Ç°ÊÇjs ,cssÎÄ¼şÃ»ÓĞ·Ö¿ªÀ´,Î»ÖÃÃ»·ÅºÃ
+å‰ç«¯ç¨å¾®æ•´äº†ä¸€ä¸‹,ä¹‹å‰æ˜¯js ,cssæ–‡ä»¶æ²¡æœ‰åˆ†å¼€æ¥,ä½ç½®æ²¡æ”¾å¥½
 
-¾Í¶ÀÁ¢³ö3¸öjspÎÄ¼ş,Ò»¸ö×¨ÃÅ·Å°æ±¾ºÅµÈ¹«¹²±äÁ¿,Ò»¸ö·ÅcssÎÄ¼ş,Ò»¸ö·ÅjsÎÄ¼ş.
+å°±ç‹¬ç«‹å‡º3ä¸ªjspæ–‡ä»¶,ä¸€ä¸ªä¸“é—¨æ”¾ç‰ˆæœ¬å·ç­‰å…¬å…±å˜é‡,ä¸€ä¸ªæ”¾cssæ–‡ä»¶,ä¸€ä¸ªæ”¾jsæ–‡ä»¶.
 
-ÕâÑùcss ¾Í¿ÉÒÔ·ÅÔÚhead±êÇ©,js ·ÅÔÚbody±êÇ©ºóÃæ
+è¿™æ ·css å°±å¯ä»¥æ”¾åœ¨headæ ‡ç­¾,js æ”¾åœ¨bodyæ ‡ç­¾åé¢
   
