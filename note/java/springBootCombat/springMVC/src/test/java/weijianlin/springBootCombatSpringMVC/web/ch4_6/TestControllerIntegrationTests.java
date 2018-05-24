@@ -1,4 +1,4 @@
-package java.weijianlin.springBootCombatSpringMVC.web.ch4_6;
+package weijianlin.springBootCombatSpringMVC.web.ch4_6;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,19 +45,22 @@ public class TestControllerIntegrationTests {
     }
 
     @Test
-    public void testNormalContoller() throws Exception{
-        mockMvc.perform(get("/normal")) //8
-        .andExpect(status().isOk())   //9
-        .andExpect(view().name("page"))   //10
-        .andExpect(forwardedUrl("/WEB-INF/classes/views/page.jsp"))//11
-            .andExpect(model().attribute("msg",demoService.saySomeThing()));    //12
+    public void testNormalController() throws Exception{
+        mockMvc.perform(get("/normal")) //模拟向.normal进行get请求
+        .andExpect(status().isOk())   //预期返回状态为200
+        .andExpect(view().name("page"))   //预期view的名称为page
+                // 预期页面转向的真正路径为/WEB-INF/classes/views/page.jsp
+        .andExpect(forwardedUrl("/WEB-INF/classes/views/page.jsp"))
+                //预期model里的值是
+            .andExpect(model().attribute("msg",demoService.saySomeThing()));
     }
 
-    public void testRestControllers() throws  Exception{
-        mockMvc.perform(get("/testRest")) //13
+    @Test
+    public void testRestController() throws  Exception{
+        mockMvc.perform(get("/testRest")) //模拟向testRest进行get请求
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("text/plain;charset=UTF-8"))//14
-                .andExpect(content().string(demoService.saySomeThing()));    //15
+                .andExpect(content().contentType("text/plain;charset=UTF-8"))//预期返回值的媒体类型为text/plain;charset=UTF-8
+                .andExpect(content().string(demoService.saySomeThing()));    //预期返回值的内容为
     }
 
 }
