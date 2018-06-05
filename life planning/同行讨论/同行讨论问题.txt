@@ -10,64 +10,68 @@
 
 一:刘川
 
-1.电商-电子元器件 
+    1.电商-电子元器件 
 
-2.只做后端,平时写java基础代码,sql优化
+    2.只做后端,平时写java基础代码,sql优化
 
-基础架构:springMvc + myatis + spring  PRC:Dubbo + Zookeeper
+    基础架构:springMvc + myatis + spring  PRC:Dubbo + Zookeeper
 
-数据库:mySql,缓存Redis 
+    数据库:mySql,缓存Redis 
 
-3.基本工资+绩效+加班费+五险一金 8.5+(0--4) = 1.2w;6天10小时,一年后加了薪
+    3.基本工资+绩效+加班费+五险一金 8.5+(0--4) = 1.2w;6天10小时,一年后加了薪
 
 二:张鹏
 
-1.互联网金融-基金股票
+    1.互联网金融-基金股票
 
-2.只做后端,平时比较闲
+    2.只做后端,平时比较闲
 
-  基础架构:spring Boot + spring clound + mybatis 
+      基础架构:spring Boot + spring clound + mybatis 
 
-  微服务(消息队列Mq) 缓存Redis 
+      微服务(消息队列Mq) 缓存Redis 
 
-3.基本工资+绩效(3个月一次 * 8)+加班费+六险一金 = 1w;5天8小时
+    3.基本工资+绩效(3个月一次 * 8)+加班费+六险一金 = 1w;5天8小时,一年调两次薪
 
 
 三:黄翔福
 
-1.海关等政府项目
+    1.海关等政府项目
 
-2.搞数据库性能,分表,集群
+    2.搞数据库性能,分表,集群
 
-3.五险一金年终奖 1.3w,5天8小时
+    3.五险一金年终奖 1.3w,5天8小时
 
 四:胡青丰
 
-1.保险
+    1.保险
 
-2.大部分写后端:springMvc + spring + mybatis
+    2.大部分写后端:springMvc + spring + mybatis
 
-   缓存Redis 
+       缓存Redis 
 
-3.加班,调休
+    3.加班,调休
 
 五:崔俊彬  
 
-1.外包
+    
   
 六:王敏文
 
-1.电子招投标
+    1.电子招投标
 
-2.springMvc + spring + mybatis 
+    2.springMvc + spring + mybatis 
 
-3.9k
+    3.9k
 
 六:欧阳溧
 
 七:范为盟
 
 八:吴铃
+
+    1.演出票
+
+    2.产品经理
 
 九:柳宏伟
 
