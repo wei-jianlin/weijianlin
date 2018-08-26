@@ -1,8 +1,0 @@
-Hadoop
-Hive
-scala
-Spark
-Hbase
-zookeeper
-ElasticSearch
-storm
