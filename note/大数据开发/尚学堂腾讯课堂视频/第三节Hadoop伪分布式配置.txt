@@ -1,17 +1,17 @@
-ËþÊ½·þÎñÆ÷
-»ú¼Ü·þÎñÆ÷(³£ÓÃ)
-µ¶Æ¬·þÎñÆ÷
+ï»¿å¡”å¼æœåŠ¡å™¨
+æœºæž¶æœåŠ¡å™¨(å¸¸ç”¨)
+åˆ€ç‰‡æœåŠ¡å™¨
 
-HDFS¶ÁÁ÷³Ì
+HDFSè¯»æµç¨‹
 
-²Ù×÷ÏµÍ³»·¾³:
+æ“ä½œç³»ç»ŸçŽ¯å¢ƒ:
 hostname
-jdk,java_home»·¾³±äÁ¿ÅäÖÃ
-sshÃâÃÜÂëµÇÂ¼
+jdk,java_homeçŽ¯å¢ƒå˜é‡é…ç½®
+sshå…å¯†ç ç™»å½•
 
-hadoop²¿Êð
-°²×°hadoop-2.6.5
-ÅäÖÃÎÄ¼þÐÞ¸Ä
+hadoopéƒ¨ç½²
+å®‰è£…hadoop-2.6.5
+é…ç½®æ–‡ä»¶ä¿®æ”¹
 ...
 
 

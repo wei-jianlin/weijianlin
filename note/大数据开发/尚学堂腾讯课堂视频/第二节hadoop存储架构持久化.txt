@@ -1,12 +1,12 @@
-¿ìËÙÅÅĞò
-¹é²¢ÅÅĞò
+ï»¿å¿«é€Ÿæ’åº
+å½’å¹¶æ’åº
 
-NameNode»ùÓÚÄÚ´æ´æ´¢,³Ö¾Ã»¯
+NameNodeåŸºäºå†…å­˜å­˜å‚¨,æŒä¹…åŒ–
 
-DataNode:Æô¶¯DateNodeÊ±ÏòNameNode·¢ËÍĞÄÌø±£³ÖÁªÏµ
+DataNode:å¯åŠ¨DateNodeæ—¶å‘NameNodeå‘é€å¿ƒè·³ä¿æŒè”ç³»
 
-Ò»¸öHadoop¼¯ÈºÒ»°ã¼¸Ê®¼¸°Ù¸ö½Úµã
+ä¸€ä¸ªHadoopé›†ç¾¤ä¸€èˆ¬å‡ åå‡ ç™¾ä¸ªèŠ‚ç‚¹
 
-SeconddaryNameNode(SNN):ºÏ²¢edits+fsimage
+SeconddaryNameNode(SNN):åˆå¹¶edits+fsimage
 
 
