@@ -1,4 +1,0 @@
-hdfs namenode -format:初始化hadoop集群时,格式化namenode
-
-start-dfs.sh:启动hadoop集群
-stop-dfs.sh:停止hadoop集群
