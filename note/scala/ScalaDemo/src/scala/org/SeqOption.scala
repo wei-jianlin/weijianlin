@@ -25,3 +25,10 @@ object SeqOption {
     println("++")
   }
 }
+case class Friend(a : String,b : String) extends Comparable[Friend]{
+  override def compareTo(o: Friend): Int = {
+    if(this.a.equals(o.a) && this.b.equals(o.b)) return 0
+    if(this.a.equals(o.b) && this.b.equals(o.a)) return 0
+    1
+  }
+}
